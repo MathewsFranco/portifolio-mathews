@@ -24,8 +24,8 @@ export interface ExpertiseDomain {
 }
 
 export const heroContent = {
-	headline: "Where craft meets interface",
-	sub: "Mathews Franco — Product & Frontend Developer, Gothenburg",
+	headline: "Mathews Franco",
+	sub: "I build interfaces that feel as good as they look.",
 };
 
 export const aboutContent = {

@@ -292,7 +292,7 @@ export function ContactSection() {
 					ease: [0.16, 1, 0.3, 1],
 				}}
 			>
-				<div className="space-y-1">
+				<div className="space-y-2">
 					<a href={`mailto:${contactLinks.email}`} className="contact-row">
 						<Mail size={16} />
 						{contactLinks.email}
