@@ -118,7 +118,7 @@ function AboutSection() {
             {aboutContent.intro}
           </motion.p>
           <motion.blockquote
-            className="blockquote-accent"
+            className="blockquote-accent py-2"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -153,12 +153,13 @@ function ExpertiseSection() {
           kicker="Expertise"
           title="What I bring to the table"
         />
-        <div className="grid gap-4 md:grid-cols-2">
+        <div style={{ borderTop: "1px solid var(--c-border)" }}>
           {expertiseDomains.map((domain, i) => (
             <motion.article
               key={domain.title}
-              className="card-glass p-7"
-              initial={{ opacity: 0, y: 24 }}
+              className="expertise-strip"
+              style={{ borderBottom: "1px solid var(--c-border)" }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{
@@ -167,28 +168,53 @@ function ExpertiseSection() {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              <h3
-                className="mb-3 font-semibold text-lg"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontVariationSettings: '"opsz" 32',
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                {domain.title}
-              </h3>
-              <p
-                className="mb-4 text-sm leading-relaxed"
-                style={{ color: "var(--c-muted)" }}
-              >
-                {domain.description}
-              </p>
-              <p
-                className="text-xs"
-                style={{ color: "var(--c-muted)", letterSpacing: "0.02em" }}
-              >
-                {domain.tools.join(" / ")}
-              </p>
+              <div className="flex items-start gap-6 sm:gap-10">
+                <span className="expertise-ghost-index">0{i + 1}</span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between">
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 300,
+                        fontStyle: "italic",
+                        fontSize: "clamp(1.4rem, 2.8vw, 2.1rem)",
+                        fontVariationSettings: '"opsz" 72',
+                        letterSpacing: "-0.025em",
+                        lineHeight: 1.15,
+                      }}
+                    >
+                      {domain.title}
+                    </h3>
+                    <span className="expertise-arrow">→</span>
+                  </div>
+                  <div className="expertise-content-reveal">
+                    <div className="expertise-content-inner">
+                      <p
+                        className="mt-5 text-base leading-relaxed"
+                        style={{ color: "var(--c-muted)", maxWidth: "54ch" }}
+                      >
+                        {domain.description}
+                      </p>
+                      <div className="mb-2 mt-4 flex flex-wrap gap-4">
+                        {domain.tools.map((tool) => (
+                          <span
+                            key={tool}
+                            style={{
+                              fontSize: "0.68rem",
+                              fontWeight: 600,
+                              letterSpacing: "0.16em",
+                              textTransform: "uppercase",
+                              color: "var(--c-accent-light)",
+                            }}
+                          >
+                            {tool}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.article>
           ))}
         </div>
@@ -196,7 +222,6 @@ function ExpertiseSection() {
     </section>
   );
 }
-
 function ExperienceSection() {
   return (
     <section id="experience" className="section">
