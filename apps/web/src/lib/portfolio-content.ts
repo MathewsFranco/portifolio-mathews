@@ -7,14 +7,63 @@ export interface ExperienceItem {
 	tech: string[];
 }
 
-export interface ProjectItem {
+export interface TechItem {
 	name: string;
-	description: string;
-	tech: string[];
-	initials: string;
-	github: string;
-	demo: string;
-	gradient: string;
+	/** 5 = core daily driver, 4 = strong, 3 = solid, 2 = used */
+	weight: 1 | 2 | 3 | 4 | 5;
+	category: string;
+	/** simple-icons slug — omit if no icon exists */
+	iconSlug?: string;
+}
+
+export const techStack: TechItem[] = [
+	// weight 5 → 2×2 featured cells
+	{ name: "React", weight: 5, category: "Core", iconSlug: "react" },
+	{ name: "TypeScript", weight: 5, category: "Core", iconSlug: "typescript" },
+	// weight 4 → 2×1 wide cells
+	{ name: "CSS", weight: 4, category: "Styling", iconSlug: "css" },
+	{ name: "Next.js", weight: 4, category: "Framework", iconSlug: "nextdotjs" },
+	{
+		name: "Storybook",
+		weight: 4,
+		category: "Design Systems",
+		iconSlug: "storybook",
+	},
+	{ name: "Playwright", weight: 4, category: "Testing" },
+	{ name: "Jest", weight: 4, category: "Testing", iconSlug: "jest" },
+	{ name: "Figma", weight: 4, category: "Design", iconSlug: "figma" },
+	// weight 3 → 1×1 standard cells
+	{
+		name: "styled-components",
+		weight: 3,
+		category: "Styling",
+		iconSlug: "styledcomponents",
+	},
+	{ name: "TanStack Router", weight: 3, category: "Framework" },
+	{ name: "React Native", weight: 3, category: "Mobile" },
+	{ name: "Jotai", weight: 3, category: "State" },
+	{ name: "Redux", weight: 3, category: "State", iconSlug: "redux" },
+	{ name: "GraphQL", weight: 3, category: "Data", iconSlug: "graphql" },
+	{ name: "Emotion", weight: 3, category: "Styling" },
+	{
+		name: "React Testing Library",
+		weight: 3,
+		category: "Testing",
+		iconSlug: "testinglibrary",
+	},
+	// weight 2 → 1×1 small cells
+	{ name: "Docker", weight: 2, category: "Tooling", iconSlug: "docker" },
+	{ name: "Vite", weight: 2, category: "Tooling", iconSlug: "vite" },
+	{ name: "Git", weight: 2, category: "Tooling", iconSlug: "git" },
+	{ name: "Bun", weight: 2, category: "Tooling", iconSlug: "bun" },
+];
+
+export interface TestimonialItem {
+	name: string;
+	role: string;
+	relationship: string;
+	date: string;
+	quote: string;
 }
 
 export interface ExpertiseDomain {
@@ -117,37 +166,38 @@ export const experienceItems: ExperienceItem[] = [
 	},
 ];
 
-// TODO: replace placeholder data with real project data
-export const projectItems: ProjectItem[] = [
+export const testimonialItems: TestimonialItem[] = [
 	{
-		name: "Component Library",
-		description:
-			"A documented, accessible React component library with Storybook. 10+ components, light/dark theming, and design token integration.",
-		tech: ["React", "TypeScript", "Storybook"],
-		initials: "CL",
-		github: "https://github.com/mathewsfranco",
-		demo: "https://github.com/mathewsfranco",
-		gradient: "linear-gradient(135deg, #1a3c2a, #2f7d52)",
+		name: "Jonatan Rugarn",
+		role: "Engineering Manager",
+		relationship: "Managed Mathews directly",
+		date: "February 2025",
+		quote:
+			"Mathews has been an outstanding member of our team. He consistently delivered high-quality work, took initiative on complex problems, and brought a thoughtful engineering mindset to everything he worked on. His ability to collaborate across design and product made him an invaluable contributor to our shared component library and annotation tooling.",
 	},
 	{
-		name: "Analytics Dashboard",
-		description:
-			"Data visualization dashboard for workflow monitoring. React + Recharts with live-updating mock data and responsive chart layouts.",
-		tech: ["React", "TypeScript", "Recharts"],
-		initials: "AD",
-		github: "https://github.com/mathewsfranco",
-		demo: "https://github.com/mathewsfranco",
-		gradient: "linear-gradient(135deg, #2f7d52, #4caf6e)",
+		name: "Johan Yu",
+		role: "Frontend Developer @ Kognic",
+		relationship: "Worked on the same team",
+		date: "March 2025",
+		quote:
+			"Working alongside Mathews was genuinely enjoyable. He has a rare combination of strong technical skills and design sensibility — he cares deeply about how things look and feel, not just whether they work. His contributions to the component library were thorough and well-considered, and he was always willing to dive into ambiguous problems without needing a detailed spec. I also appreciated how he gave constructive feedback in code reviews and pushed the team's quality bar higher.",
 	},
 	{
-		name: "Brew Log",
-		description:
-			"Personal coffee brew tracker — recipe storage, tasting notes, and extraction analytics. Because good coffee deserves good data.",
-		tech: ["React", "Next.js", "Supabase"],
-		initials: "BL",
-		github: "https://github.com/mathewsfranco",
-		demo: "https://github.com/mathewsfranco",
-		gradient: "linear-gradient(135deg, #1a3c2a, #4caf6e)",
+		name: "Filip Lindahl",
+		role: "Software Engineer",
+		relationship: "Worked on different teams",
+		date: "March 2025",
+		quote:
+			"Mathews is one of those engineers who makes things around him better. Even working on different teams, his impact on shared tooling and the design system was clearly felt. Solid engineer, great to work with.",
+	},
+	{
+		name: "Iaroslav Grishunin",
+		role: "Senior Front End Developer",
+		relationship: "Was Mathews' mentor",
+		date: "October 2022",
+		quote:
+			"I had the pleasure of mentoring Mathews during his time at Hero Gaming, and it was clear from the start that he was someone who genuinely wanted to grow. He absorbed feedback quickly, asked the right questions, and applied what he learned with real intention. His curiosity and dedication to his craft made mentoring him a rewarding experience.",
 	},
 ];
 
