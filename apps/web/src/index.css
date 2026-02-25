@@ -126,11 +126,39 @@ body {
 
 .hero-sub {
 	margin-top: clamp(1.25rem, 2.5vw, 2rem);
-	font-size: clamp(0.88rem, 1.3vw, 1rem);
-	color: var(--c-muted);
-	letter-spacing: 0.01em;
-	max-width: 40ch;
-	line-height: 1.6;
+	font-size: clamp(1rem, 1.5vw, 1.15rem);
+	font-family: var(--font-display);
+	font-style: italic;
+	font-weight: 300;
+	font-variation-settings: "opsz" 36;
+	color: var(--c-fg);
+	letter-spacing: -0.01em;
+	max-width: 48ch;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0 0.28em;
+	position: relative;
+	padding-bottom: 0.5em;
+}
+
+.hero-sub-word {
+	display: inline-block;
+}
+
+.hero-sub-word--accent {
+	color: var(--c-accent);
+}
+
+.hero-sub-line {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background: var(--c-accent);
+	transform-origin: left;
+	display: block;
 }
 
 .scroll-line {

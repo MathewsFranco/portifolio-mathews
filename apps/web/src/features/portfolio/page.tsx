@@ -105,14 +105,45 @@ function HeroSection() {
 					</motion.span>
 				))}
 			</h1>
-			<motion.p
-				className="hero-sub"
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.7, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-			>
-				{heroContent.sub}
-			</motion.p>
+			{(() => {
+				const phraseWords = [
+					{ text: "I", accent: false },
+					{ text: "build", accent: false },
+					{ text: "interfaces", accent: false },
+					{ text: "that", accent: false },
+					{ text: "feel", accent: true },
+					{ text: "as", accent: true },
+					{ text: "good", accent: true },
+					{ text: "as", accent: true },
+					{ text: "they", accent: true },
+					{ text: "look.", accent: true },
+				];
+				return (
+					<p className="hero-sub" aria-label={heroContent.sub}>
+						{phraseWords.map((word, i) => (
+							<motion.span
+								key={i}
+								className={`hero-sub-word${word.accent ? " hero-sub-word--accent" : ""}`}
+								initial={{ opacity: 0, y: 10 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{
+									duration: 0.55,
+									delay: 0.85 + i * 0.07,
+									ease: [0.16, 1, 0.3, 1],
+								}}
+							>
+								{word.text}
+							</motion.span>
+						))}
+						<motion.span
+							className="hero-sub-line"
+							initial={{ scaleX: 0 }}
+							animate={{ scaleX: 1 }}
+							transition={{ duration: 0.55, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
+						/>
+					</p>
+				);
+			})()}
 		</section>
 	);
 }
