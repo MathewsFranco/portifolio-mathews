@@ -17,10 +17,7 @@ import {
 	siTypescript,
 	siVite,
 } from "simple-icons";
-import {
-	ContactSection,
-	GithubActivitySection,
-} from "@/features/portfolio/blocks";
+import { ContactSection } from "@/features/portfolio/blocks";
 import {
 	aboutContent,
 	expertiseDomains,
@@ -435,27 +432,12 @@ function TestimonialsSection() {
 	);
 }
 
-function ActivitySection() {
-	return (
-		<section id="activity" className="section">
-			<div className="shell">
-				<SectionHeader
-					index="05"
-					kicker="Open Source"
-					title="Recent activity"
-				/>
-				<GithubActivitySection />
-			</div>
-		</section>
-	);
-}
-
 function ContactSectionWrapper() {
 	return (
 		<section id="contact" className="section">
 			<div className="shell">
 				<SectionHeader
-					index="06"
+					index="05"
 					kicker="Contact"
 					title="Let's build something together"
 				/>
@@ -488,7 +470,6 @@ export function PortfolioPage() {
 					<ExpertiseSection />
 					<ExperienceSection />
 					<TestimonialsSection />
-					<ActivitySection />
 					<ContactSectionWrapper />
 				</main>
 				<Footer />
