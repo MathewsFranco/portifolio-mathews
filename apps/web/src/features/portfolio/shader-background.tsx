@@ -1,5 +1,9 @@
 import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
 
+const SHADER_COLOR_DARK = "#1a3c2a";
+const SHADER_COLOR_LIGHT = "#d4e8db";
+const SHADER_COLOR_MID = "#2f7d52";
+
 export function PortfolioShaderBackground() {
 	return (
 		<div className="shader-canvas" aria-hidden>
@@ -14,9 +18,9 @@ export function PortfolioShaderBackground() {
 					cAzimuthAngle={180}
 					cDistance={3.6}
 					cPolarAngle={90}
-					color1="#1a3c2a"
-					color2="#d4e8db"
-					color3="#2f7d52"
+					color1={SHADER_COLOR_DARK}
+					color2={SHADER_COLOR_LIGHT}
+					color3={SHADER_COLOR_MID}
 					envPreset="city"
 					grain="on"
 					lightType="3d"

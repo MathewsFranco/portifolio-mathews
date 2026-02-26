@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { type GithubOverview, getGithubOverview } from "@/lib/github";
+import { getGithubOverview } from "@/lib/github";
+import type { GithubOverview } from "@/lib/github.types";
 
 const initialData: GithubOverview = {
   stats: {
@@ -32,7 +33,6 @@ export function useGithubData(): UseGithubDataResult {
     async function load() {
       try {
         const response = await getGithubOverview();
-        console.log(response);
         if (!cancelled) {
           setData(response);
           setError(false);

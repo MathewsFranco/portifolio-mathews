@@ -3,6 +3,7 @@
 
 /* ─── Design tokens ─── */
 :root {
+	/* Base palette */
 	--c-bg: #0d1410;
 	--c-surface: #161e18;
 	--c-fg: #eef2ee;
@@ -12,14 +13,63 @@
 	--c-accent-light: #6ed48a;
 	--c-accent-pale: #2f7d52;
 
+	/* Typography */
 	--font-display: "Fraunces", serif;
 	--font-body: "Instrument Sans", sans-serif;
 
+	/* Easing curves */
 	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 	--ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 
+	/* Layout */
 	--shell-max: 1200px;
 	--shell-px: clamp(1.25rem, 4vw, 3rem);
+
+	/* ─── Alpha scale — Accent (#4caf6e = 76 175 110) ─── */
+	--c-accent-mist:   rgba(76, 175, 110, 0.04);  /* hover surface tint */
+	--c-accent-glow:   rgba(76, 175, 110, 0.10);  /* focus rings, glow backgrounds */
+	--c-accent-haze:   rgba(76, 175, 110, 0.25);  /* selection highlight */
+	--c-accent-dim:    rgba(76, 175, 110, 0.18);  /* heatmap level 1 */
+	--c-accent-mid:    rgba(76, 175, 110, 0.42);  /* heatmap level 2 */
+	--c-accent-stroke: rgba(76, 175, 110, 0.45);  /* ghost index accent on hover */
+
+	/* ─── Alpha scale — Foreground (#eef2ee = 238 242 238) ─── */
+	--c-fg-faint:  rgba(238, 242, 238, 0.04);  /* skeleton shimmer overlay */
+	--c-fg-ghost:  rgba(238, 242, 238, 0.12);  /* ghost strokes, subtle borders */
+	--c-fg-subtle: rgba(238, 242, 238, 0.15);  /* scroll line, medium borders */
+
+	/* ─── Alpha scale — Background (#0d1410 = 13 20 16) ─── */
+	--c-bg-0:    rgba(13, 20, 16, 0);     /* transparent start for gradients */
+	--c-bg-15:   rgba(13, 20, 16, 0.15);
+	--c-bg-half: rgba(13, 20, 16, 0.50);  /* tech cell category on hover */
+	--c-bg-75:   rgba(13, 20, 16, 0.75);
+	--c-bg-97:   rgba(13, 20, 16, 0.97);
+
+	/* ─── Shadow scale ─── */
+	--c-shadow-sm: rgba(0, 0, 0, 0.12);
+	--c-shadow-md: rgba(0, 0, 0, 0.22);
+	--c-shadow-lg: rgba(0, 0, 0, 0.30);
+	--c-shadow-xl: rgba(0, 0, 0, 0.35);
+
+	/* ─── Semantic surfaces ─── */
+	--c-glass-bg:     rgba(22, 30, 24, 0.60);   /* card-glass */
+	--c-glass-border: rgba(37, 48, 40, 0.80);   /* card-glass border */
+
+	--c-frosted-bg:              rgba(22, 22, 22, 0.38);   /* testimonial card */
+	--c-frosted-bg-hover:        rgba(18, 28, 20, 0.48);
+	--c-frosted-border:          rgba(238, 242, 238, 0.07);
+	--c-frosted-border-top:      rgba(238, 242, 238, 0.13);
+	--c-frosted-border-hover:    rgba(238, 242, 238, 0.10);
+	--c-frosted-border-top-hover: rgba(238, 242, 238, 0.18);
+
+	/* ─── Inset highlights ─── */
+	--c-inset-hi:       rgba(238, 242, 238, 0.06);
+	--c-inset-lo:       rgba(0, 0, 0, 0.12);
+	--c-inset-hi-hover: rgba(238, 242, 238, 0.09);
+	--c-inset-lo-hover: rgba(0, 0, 0, 0.15);
+
+	/* ─── UI state colors ─── */
+	--c-pr-merged: #a78bfa;  /* purple for merged pull requests */
 }
 
 /* ─── Reset & base ─── */
@@ -47,7 +97,7 @@ body {
 }
 
 ::selection {
-	background: rgba(76, 175, 110, 0.25);
+	background: var(--c-accent-haze);
 	color: var(--c-fg);
 }
 
@@ -74,10 +124,10 @@ body {
 	pointer-events: none;
 	background: linear-gradient(
 		180deg,
-		rgba(13, 20, 16, 0) 0%,
-		rgba(13, 20, 16, 0.15) 35%,
-		rgba(13, 20, 16, 0.75) 70%,
-		rgba(13, 20, 16, 0.97) 100%
+		var(--c-bg-0) 0%,
+		var(--c-bg-15) 35%,
+		var(--c-bg-75) 70%,
+		var(--c-bg-97) 100%
 	);
 }
 
@@ -85,8 +135,6 @@ body {
 	position: relative;
 	z-index: 2;
 }
-
-/* ─── Navigation removed ─── */
 
 /* ─── Hero ─── */
 .hero {
@@ -165,7 +213,7 @@ body {
 .scroll-line {
 	width: 1px;
 	height: 64px;
-	background: rgba(238, 242, 238, 0.15);
+	background: var(--c-fg-subtle);
 	margin-top: clamp(2rem, 5vh, 4rem);
 	position: relative;
 	overflow: hidden;
@@ -209,7 +257,7 @@ body {
 	font-variation-settings: "opsz" 144;
 	line-height: 0.75;
 	color: transparent;
-	-webkit-text-stroke: 1px rgba(238, 242, 238, 0.13);
+	-webkit-text-stroke: 1px var(--c-fg-ghost);
 	position: absolute;
 	top: -0.3em;
 	left: -0.05em;
@@ -264,7 +312,7 @@ body {
 }
 
 .expertise-strip:hover {
-	background: rgba(76, 175, 110, 0.025);
+	background: var(--c-accent-mist);
 }
 
 .expertise-ghost-index {
@@ -274,7 +322,7 @@ body {
 	font-variation-settings: "opsz" 144;
 	line-height: 1;
 	color: transparent;
-	-webkit-text-stroke: 1px rgba(238, 242, 238, 0.12);
+	-webkit-text-stroke: 1px var(--c-fg-ghost);
 	user-select: none;
 	flex-shrink: 0;
 	width: clamp(3rem, 5vw, 4.5rem);
@@ -282,7 +330,7 @@ body {
 }
 
 .expertise-strip:hover .expertise-ghost-index {
-	-webkit-text-stroke-color: rgba(76, 175, 110, 0.45);
+	-webkit-text-stroke-color: var(--c-accent-stroke);
 }
 
 .expertise-arrow {
@@ -290,7 +338,6 @@ body {
 	color: var(--c-muted);
 	flex-shrink: 0;
 	margin: 0 2rem;
-
 	transition:
 		color 0.3s ease,
 		transform 0.5s var(--ease-out-expo);
@@ -327,12 +374,12 @@ body {
 
 .card:hover {
 	transform: translateY(-2px);
-	box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 16px 48px var(--c-shadow-lg);
 }
 
 .card-glass {
-	background: rgba(22, 30, 24, 0.6);
-	border: 1px solid rgba(37, 48, 40, 0.8);
+	background: var(--c-glass-bg);
+	border: 1px solid var(--c-glass-border);
 	backdrop-filter: blur(12px);
 	-webkit-backdrop-filter: blur(12px);
 	border-radius: 4px;
@@ -343,7 +390,7 @@ body {
 
 .card-glass:hover {
 	transform: translateY(-2px);
-	box-shadow: 0 20px 48px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 20px 48px var(--c-shadow-lg);
 }
 
 /* ─── Stat number ─── */
@@ -507,7 +554,7 @@ body {
 }
 
 .tech-cell:hover .tech-cell-category {
-	color: rgba(13, 20, 16, 0.5);
+	color: var(--c-bg-half);
 }
 
 @media (max-width: 640px) {
@@ -545,26 +592,25 @@ body {
 	gap: 1.25rem;
 	padding: clamp(1.5rem, 3vw, 2rem);
 	margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
-	/* Frosted glass overrides */
-	background: rgba(22, 22, 22, 0.38);
-	border-color: rgba(238, 242, 238, 0.07);
-	border-top-color: rgba(238, 242, 238, 0.13);
+	background: var(--c-frosted-bg);
+	border-color: var(--c-frosted-border);
+	border-top-color: var(--c-frosted-border-top);
 	backdrop-filter: blur(20px) saturate(1.5) brightness(1.04);
 	-webkit-backdrop-filter: blur(20px) saturate(1.5) brightness(1.04);
 	box-shadow:
-		inset 0 1px 0 rgba(238, 242, 238, 0.06),
-		inset 0 -1px 0 rgba(0, 0, 0, 0.12),
-		0 4px 20px rgba(0, 0, 0, 0.22);
+		inset 0 1px 0 var(--c-inset-hi),
+		inset 0 -1px 0 var(--c-inset-lo),
+		0 4px 20px var(--c-shadow-md);
 }
 
 .testimonial-card:hover {
-	background: rgba(18, 28, 20, 0.48);
-	border-color: rgba(238, 242, 238, 0.1);
-	border-top-color: rgba(238, 242, 238, 0.18);
+	background: var(--c-frosted-bg-hover);
+	border-color: var(--c-frosted-border-hover);
+	border-top-color: var(--c-frosted-border-top-hover);
 	box-shadow:
-		inset 0 1px 0 rgba(238, 242, 238, 0.09),
-		inset 0 -1px 0 rgba(0, 0, 0, 0.15),
-		0 16px 48px rgba(0, 0, 0, 0.35);
+		inset 0 1px 0 var(--c-inset-hi-hover),
+		inset 0 -1px 0 var(--c-inset-lo-hover),
+		0 16px 48px var(--c-shadow-xl);
 }
 
 .testimonial-quote-mark {
@@ -635,7 +681,7 @@ body {
 .input:focus {
 	outline: none;
 	border-color: var(--c-accent);
-	box-shadow: 0 0 0 3px rgba(76, 175, 110, 0.12);
+	box-shadow: 0 0 0 3px var(--c-accent-glow);
 }
 
 .input::placeholder {
@@ -694,7 +740,7 @@ body {
 	content: "";
 	position: absolute;
 	inset: 0;
-	background: rgba(76, 175, 110, 0.04);
+	background: var(--c-accent-mist);
 	transform: scaleX(0);
 	transform-origin: left;
 	transition: transform 0.5s var(--ease-out-expo);
@@ -738,7 +784,7 @@ body {
 .contact-link-actions {
 	display: flex;
 	align-items: center;
-	gap: 0.6rem;
+	gap: 0.5rem;
 	flex-shrink: 0;
 }
 
@@ -787,18 +833,11 @@ body {
 .contact-copy-btn:hover {
 	color: var(--c-fg);
 	border-color: var(--c-accent);
-	background: rgba(76, 175, 110, 0.08);
+	background: var(--c-accent-glow);
 }
 
 .contact-copy-btn:active {
 	transform: scale(0.92);
-}
-
-.contact-link-actions {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	flex-shrink: 0;
 }
 
 @media (max-width: 560px) {
@@ -986,7 +1025,7 @@ body {
 .repo-card:hover {
 	border-color: var(--c-accent);
 	transform: translateY(-2px);
-	box-shadow: 0 8px 32px rgba(76, 175, 110, 0.08);
+	box-shadow: 0 8px 32px var(--c-accent-glow);
 }
 
 .repo-card-header {
@@ -1056,7 +1095,7 @@ body {
 	background: linear-gradient(
 		90deg,
 		var(--c-surface) 25%,
-		rgba(238, 242, 238, 0.04) 50%,
+		var(--c-fg-faint) 50%,
 		var(--c-surface) 75%
 	);
 	background-size: 200% 100%;
@@ -1099,4 +1138,3 @@ body {
 	color: var(--c-muted);
 	font-size: 0.82rem;
 }
-
