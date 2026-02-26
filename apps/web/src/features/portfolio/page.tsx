@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin } from "lucide-react";
 import { lazy, Suspense } from "react";
 import {
 	siBun,
@@ -24,7 +23,6 @@ import {
 } from "@/features/portfolio/blocks";
 import {
 	aboutContent,
-	contactLinks,
 	expertiseDomains,
 	heroContent,
 	techStack,
@@ -470,27 +468,8 @@ function ContactSectionWrapper() {
 function Footer() {
 	return (
 		<footer className="footer">
-			<div className="shell flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+			<div className="shell flex justify-end">
 				<p>2025 Mathews Franco. Built with TypeScript & good taste.</p>
-				<div className="flex items-center gap-5">
-					<a
-						href={contactLinks.github}
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label="GitHub"
-					>
-						<Github size={16} />
-					</a>
-					<a
-						href={contactLinks.linkedin}
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label="LinkedIn"
-					>
-						<Linkedin size={16} />
-					</a>
-					<a href={`mailto:${contactLinks.email}`}>{contactLinks.email}</a>
-				</div>
 			</div>
 		</footer>
 	);

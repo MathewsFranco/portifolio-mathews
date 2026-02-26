@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useGithubData } from "@/hooks/useGithubData";
-import { aboutContent, contactLinks } from "@/lib/portfolio-content";
+import { contactLinks } from "@/lib/portfolio-content";
 
 export function GithubActivitySection() {
 	const { data, loading, error } = useGithubData();
@@ -245,16 +245,6 @@ export function ContactSection() {
 
 	return (
 		<div>
-			<motion.p
-				className="contact-closing"
-				initial={{ opacity: 0, y: 24 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true }}
-				transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-			>
-				{aboutContent.closing}
-			</motion.p>
-
 			<div className="contact-links-list">
 				{/* Email row: div so copy button and mailto link are independent */}
 				<motion.div

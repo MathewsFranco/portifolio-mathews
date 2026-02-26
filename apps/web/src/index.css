@@ -670,19 +670,6 @@ body {
 }
 
 /* ─── Contact section ─── */
-.contact-closing {
-	font-family: var(--font-display);
-	font-weight: 300;
-	font-style: italic;
-	font-size: clamp(1.8rem, 4vw, 3.2rem);
-	font-variation-settings: "opsz" 72;
-	letter-spacing: -0.025em;
-	line-height: 1.15;
-	color: var(--c-fg);
-	max-width: 22ch;
-	margin-bottom: clamp(3rem, 6vw, 5rem);
-}
-
 .contact-links-list {
 	border-top: 1px solid var(--c-border);
 }
@@ -875,12 +862,3 @@ body {
 	font-size: 0.82rem;
 }
 
-.footer a {
-	color: var(--c-muted);
-	text-decoration: none;
-	transition: color 0.3s ease;
-}
-
-.footer a:hover {
-	color: var(--c-fg);
-}
