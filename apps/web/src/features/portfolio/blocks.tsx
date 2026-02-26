@@ -2,13 +2,15 @@ import { formatDistanceToNow } from "date-fns";
 import { motion } from "framer-motion";
 import {
 	ArrowUpRight,
+	Check,
+	Copy,
 	ExternalLink,
 	Github,
 	Linkedin,
 	Mail,
 	Phone,
 } from "lucide-react";
-import { type FormEvent, useState } from "react";
+import { useState } from "react";
 import { useGithubData } from "@/hooks/useGithubData";
 import { aboutContent, contactLinks } from "@/lib/portfolio-content";
 
@@ -180,158 +182,132 @@ export function GithubActivitySection() {
 	);
 }
 
-export function ContactSection() {
-	const [status, setStatus] = useState<
-		"idle" | "submitting" | "success" | "error"
-	>("idle");
-	const [message, setMessage] = useState("");
+function CopyEmailButton({ email }: { email: string }) {
+	const [copied, setCopied] = useState(false);
 
-	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		setStatus("submitting");
-		setMessage("");
-
-		const formData = new FormData(event.currentTarget);
-		const email = String(formData.get("email") ?? "").trim();
-		if (!/^\S+@\S+\.\S+$/.test(email)) {
-			setStatus("error");
-			setMessage("Please provide a valid email address.");
-			return;
-		}
-
-		const endpoint =
-			(import.meta.env.VITE_FORM_ENDPOINT as string | undefined) ?? "";
-
-		// TODO: set VITE_FORM_ENDPOINT with your real form endpoint
-		if (!endpoint) {
-			setStatus("error");
-			setMessage("Form endpoint is not configured yet. Use direct email.");
-			return;
-		}
-
-		try {
-			const response = await fetch(endpoint, {
-				method: "POST",
-				body: formData,
-				headers: { Accept: "application/json" },
-			});
-			if (!response.ok) throw new Error("request failed");
-			setStatus("success");
-			event.currentTarget.reset();
-		} catch {
-			setStatus("error");
-			setMessage("Could not send now. Please use direct email.");
-		}
+	function handleCopy(e: React.MouseEvent) {
+		e.preventDefault();
+		navigator.clipboard.writeText(email).then(() => {
+			setCopied(true);
+			setTimeout(() => setCopied(false), 2000);
+		});
 	}
 
 	return (
-		<div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-			<motion.div
+		<button
+			onClick={handleCopy}
+			className="contact-copy-btn"
+			aria-label="Copy email address"
+			title={copied ? "Copied!" : "Copy email"}
+		>
+			{copied ? <Check size={13} /> : <Copy size={13} />}
+		</button>
+	);
+}
+
+const contactItems = [
+	{
+		icon: <Mail size={16} />,
+		label: "Email",
+		display: contactLinks.email,
+		href: `mailto:${contactLinks.email}`,
+		external: false,
+		copyValue: contactLinks.email,
+	},
+	{
+		icon: <Linkedin size={16} />,
+		label: "LinkedIn",
+		display: "linkedin.com/in/mathewsfranco",
+		href: contactLinks.linkedin,
+		external: true,
+		copyValue: undefined,
+	},
+	{
+		icon: <Github size={16} />,
+		label: "GitHub",
+		display: "github.com/mathewsfranco",
+		href: contactLinks.github,
+		external: true,
+		copyValue: undefined,
+	},
+	{
+		icon: <Phone size={16} />,
+		label: "Phone",
+		display: contactLinks.phoneDisplay,
+		href: contactLinks.phoneHref,
+		external: false,
+		copyValue: undefined,
+	},
+];
+
+export function ContactSection() {
+	const [emailItem, ...otherItems] = contactItems;
+
+	return (
+		<div>
+			<motion.p
+				className="contact-closing"
 				initial={{ opacity: 0, y: 24 }}
 				whileInView={{ opacity: 1, y: 0 }}
 				viewport={{ once: true }}
 				transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
 			>
-				<p
-					className="mb-8 max-w-md leading-relaxed"
-					style={{ color: "var(--c-muted)" }}
-				>
-					Whether you have a role in mind, a side project brewing, or just want
-					to talk frontend over coffee — I'm always up for a good conversation.
-				</p>
-				<form onSubmit={handleSubmit} className="space-y-4">
-					<div className="grid gap-4 md:grid-cols-2">
-						<input
-							name="name"
-							required
-							className="input"
-							placeholder="Your name"
-						/>
-						<input
-							name="email"
-							type="email"
-							required
-							className="input"
-							placeholder="Email"
-						/>
-					</div>
-					<textarea
-						name="message"
-						required
-						className="input min-h-36 resize-y"
-						placeholder="What's on your mind?"
-					/>
-					<button
-						type="submit"
-						disabled={status === "submitting"}
-						className="btn-primary"
-					>
-						{status === "submitting" ? "Sending..." : "Send message"}
-					</button>
-					{status === "success" && (
-						<p className="text-sm" style={{ color: "var(--c-accent)" }}>
-							Message sent — I'll be in touch soon.
-						</p>
-					)}
-					{status === "error" && (
-						<p className="text-sm" style={{ color: "#e07070" }}>
-							{message}
-						</p>
-					)}
-				</form>
-			</motion.div>
+				{aboutContent.closing}
+			</motion.p>
 
-			<motion.div
-				className="flex flex-col justify-between"
-				initial={{ opacity: 0, y: 24 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true }}
-				transition={{
-					duration: 0.7,
-					delay: 0.1,
-					ease: [0.16, 1, 0.3, 1],
-				}}
-			>
-				<div className="space-y-2">
-					<a href={`mailto:${contactLinks.email}`} className="contact-row">
-						<Mail size={16} />
-						{contactLinks.email}
-					</a>
-					<a
-						href={contactLinks.linkedin}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="contact-row"
-					>
-						<Linkedin size={16} />
-						linkedin.com/in/mathewsfranco
-					</a>
-					<a
-						href={contactLinks.github}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="contact-row"
-					>
-						<Github size={16} />
-						github.com/mathewsfranco
-					</a>
-					<a href={contactLinks.phoneHref} className="contact-row">
-						<Phone size={16} />
-						{contactLinks.phoneDisplay}
-					</a>
-				</div>
-				<p
-					className="mt-8 text-sm leading-relaxed"
-					style={{
-						fontFamily: "var(--font-display)",
-						fontStyle: "italic",
-						fontVariationSettings: '"opsz" 24',
-						color: "var(--c-muted)",
-					}}
+			<div className="contact-links-list">
+				{/* Email row: div so copy button and mailto link are independent */}
+				<motion.div
+					className="contact-link-row"
+					initial={{ opacity: 0, x: -24 }}
+					whileInView={{ opacity: 1, x: 0 }}
+					viewport={{ once: true }}
+					transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
 				>
-					{aboutContent.closing}
-				</p>
-			</motion.div>
+					<span className="contact-link-label">
+						{emailItem.icon}
+						{emailItem.label}
+					</span>
+					<span className="contact-link-value">{emailItem.display}</span>
+					<span className="contact-link-actions">
+						<CopyEmailButton email={contactLinks.email} />
+						<a
+							href={emailItem.href}
+							className="contact-link-arrow"
+							aria-label="Open email client"
+						>
+							<ArrowUpRight size={22} />
+						</a>
+					</span>
+				</motion.div>
+
+				{otherItems.map((item, i) => (
+					<motion.a
+						key={item.label}
+						href={item.href}
+						target={item.external ? "_blank" : undefined}
+						rel={item.external ? "noopener noreferrer" : undefined}
+						className="contact-link-row"
+						initial={{ opacity: 0, x: -24 }}
+						whileInView={{ opacity: 1, x: 0 }}
+						viewport={{ once: true }}
+						transition={{
+							duration: 0.6,
+							delay: (i + 1) * 0.09,
+							ease: [0.16, 1, 0.3, 1],
+						}}
+					>
+						<span className="contact-link-label">
+							{item.icon}
+							{item.label}
+						</span>
+						<span className="contact-link-value">{item.display}</span>
+						<span className="contact-link-arrow">
+							<ArrowUpRight size={22} />
+						</span>
+					</motion.a>
+				))}
+			</div>
 		</div>
 	);
 }
